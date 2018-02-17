@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Item } from './model/item';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,19 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+
+  items: Item[] = [
+    new Item('coffee', {}, true),
+    new Item('coke', {}, false),
+    new Item('milk', {}, false),
+    new Item('sneekers', {}, true),
+    new Item('waffers', {}, false),
+    new Item('pepsi', {}, false),
+    new Item('fuel', {}, false),
+    new Item('car wash', {}, false),
+  ];
+
+  onChange(items: Item[]) {
+    console.log(items);
+  }
 }
