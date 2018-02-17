@@ -28,7 +28,7 @@
     display: none !important;
   }
   
-  /deep/ .mat-chip-list-wrapper {
+  ::ng-deep .mat-chip-list-wrapper {
     flex-wrap: nowrap !important;
     align-items: center !important;
     overflow: hidden;
