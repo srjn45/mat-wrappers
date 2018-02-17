@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Item } from './model/item';
+import { Item } from './sp-multi-select-dropdown/model/item';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +7,6 @@ import { Item } from './model/item';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
 
   items: Item[] = [
     new Item('coffee', {}, true),
