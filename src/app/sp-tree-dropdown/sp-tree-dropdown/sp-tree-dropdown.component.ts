@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TreeviewItem } from 'ngx-treeview';
+import { TreeviewItem, DownlineTreeviewItem } from 'ngx-treeview';
+import { Node } from '../node';
 
 @Component({
   selector: 'sp-tree-dropdown',
@@ -15,13 +16,37 @@ export class SpTreeDropdownComponent implements OnInit {
     decoupleChildFromParent: false,
     maxHeight: 500
   }
+
   items = [itCategory];
+
+  nodes: Node[] = [
+    new Node("Electronics", 1, [
+      new Node("Mobile Phones", 11, [
+        new Node("Pixel 2 XL", 111),
+        new Node("OnePlus 5T", 112)
+      ]),
+      new Node("Computer", 12, [
+        new Node("Alienware", 121, [
+          new Node("Alienware 17", 1211),
+          new Node("Alienware 14", 1212)
+        ]),
+        new Node("HP", 122, [
+          new Node("HP Omen", 1221),
+          new Node("HP Pavelion", 1222)
+        ])
+      ])
+    ]),
+  ]
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  onSelectedChange(downlineItems: DownlineTreeviewItem[]) {
+    console.log(downlineItems);
+    // console.log(downlineItems.map(x => x.item.value));
+  }
 }
 const itCategory = new TreeviewItem({
   text: 'IT', value: 9, children: [

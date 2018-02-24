@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SpTreeviewItemComponent } from './sp-treeview-item/sp-treeview-item.component';
+import { SpTreeviewNodeComponent } from './sp-treeview-node/sp-treeview-node.component';
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [SpTreeviewItemComponent]
+  declarations: [
+    SpTreeviewNodeComponent
+  ]
 })
 export class SpTreeviewModule { }

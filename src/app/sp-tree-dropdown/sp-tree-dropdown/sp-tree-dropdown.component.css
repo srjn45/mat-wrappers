@@ -1,0 +1,7 @@
+::ng-deep .treeview-header {
+    display: none;
+    visibility: hidden;
+}
+.clickable {
+    cursor: pointer;
+}
