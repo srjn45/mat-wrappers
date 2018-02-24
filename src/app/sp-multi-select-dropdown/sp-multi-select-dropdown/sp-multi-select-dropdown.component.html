@@ -1,9 +1,11 @@
-<mat-form-field class="full-width pointer" [class.liftup]="dropDown" (click)="dropDown=!dropDown">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<div class="base">
+  <mat-form-field class="full-width pointer" [class.liftup]="dropDown" (click)="dropDown=!dropDown">
 
     <button matPrefix mat-icon-button (click)="scrollLeft($event)">
       <mat-icon color="primary">keyboard_arrow_left</mat-icon>
     </button>
-  
+
     <mat-chip-list color="primary" #chipList>
       <mat-chip color="primary" *ngFor="let item of selectedItems" [selectable]="selectable" [removable]="removable" (remove)="remove(item)"
         (click)="$event.stopPropagation()">
@@ -11,7 +13,7 @@
         <mat-icon color="warn" matChipRemove *ngIf="removable">cancel</mat-icon>
       </mat-chip>
     </mat-chip-list>
-  
+
     <button matSuffix mat-icon-button (click)="scrollRight($event)">
       <mat-icon color="primary">keyboard_arrow_right</mat-icon>
     </button>
@@ -27,4 +29,6 @@
       </mat-list-option>
     </mat-selection-list>
   </div>
-  <div class="cvr-screen" *ngIf="dropDown" (click)="$event.stopPropagation();dropDown=!dropDown;"></div>
+</div>
+
+<div class="cvr-screen" *ngIf="dropDown" (click)="$event.stopPropagation();dropDown=!dropDown;"></div>
