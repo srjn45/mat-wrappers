@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { SpMultiSelectDropdownModule } from './sp-multi-select-dropdown/sp-multi-select-dropdown.module';
+import { SpTreeDropdownModule } from './sp-tree-dropdown/sp-tree-dropdown.module';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import { SpMultiSelectDropdownModule } from './sp-multi-select-dropdown/sp-multi
   ],
   imports: [
     BrowserModule,
-    SpMultiSelectDropdownModule
+    SpMultiSelectDropdownModule,
+    SpTreeDropdownModule
   ],
   providers: [],
   bootstrap: [AppComponent]
