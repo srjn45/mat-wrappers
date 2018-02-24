@@ -6,6 +6,9 @@ import { SpTreeDropdownComponent } from './sp-tree-dropdown/sp-tree-dropdown.com
   imports: [
     CommonModule
   ],
-  declarations: [SpTreeDropdownComponent]
+  declarations: [SpTreeDropdownComponent],
+  exports: [
+    SpTreeDropdownComponent
+  ]
 })
 export class SpTreeDropdownModule { }
