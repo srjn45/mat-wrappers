@@ -5,7 +5,7 @@
 </div> -->
 <div>
     <mat-radio-group>
-        <sp-treeview-node [node]="node" [config]="config"></sp-treeview-node>
+        <sp-treeview-node [node]="node" [config]="config" (radioSelect)="onRadioSelect($event)" (checkboxSelect)="childCheckboxSelected($event)"></sp-treeview-node>
     </mat-radio-group>
 
 </div>
