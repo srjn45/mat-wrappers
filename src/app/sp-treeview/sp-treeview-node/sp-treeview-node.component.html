@@ -7,11 +7,12 @@
     </button>
     <span *ngIf="node.children==null">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 
-    <mat-radio-button *ngIf="config.select==SELECT_RADIO" [checked]="node.checked" [disabled]="node.disabled" (change)="onRadioChange()">
+    <mat-radio-button *ngIf="config.select==SELECT_RADIO" [checked]="node.checked" [value]="node.value" [disabled]="node.disabled"
+      (change)="onRadioChange($event)">
       &nbsp;{{node.text}}
     </mat-radio-button>
-    <mat-checkbox *ngIf="config.select==SELECT_CHECKBOX" [checked]="node.checked" [indeterminate]="node.indeterminate" [disabled]="node.disabled"
-      (change)="onCheckChange($event)">
+    <mat-checkbox *ngIf="config.select==SELECT_CHECKBOX" [checked]="node.checked" [value]="node.value" [indeterminate]="node.indeterminate"
+      [disabled]="node.disabled" (change)="onCheckChange($event)">
       &nbsp;{{node.text}}
     </mat-checkbox>
     <!-- <label class="clickable" (click)="node.checked = !node.checked; onCheckChange()">
@@ -23,7 +24,8 @@
   </ng-template>
 
   <div class="node-child" *ngIf="!node.collapsed">
-    <sp-treeview-node *ngFor="let child of node.children" [node]="child" [config]="config" (checkChange)="onChildCheckChange($event)">
+    <sp-treeview-node *ngFor="let child of node.children" [node]="child" [config]="config" (checkChange)="onChildCheckChange($event)"
+      (radioSelect)="childRadioSelected($event)" (checkboxSelect)="childCheckboxSelected($event)">
     </sp-treeview-node>
   </div>
 </div>
