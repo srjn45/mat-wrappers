@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SpTreeviewNodeComponent } from './sp-treeview-node/sp-treeview-node.component';
 
 import { MatIconModule, MatRadioModule, MatCheckboxModule, MatButtonModule } from "@angular/material";
+import { SpTreeviewComponent } from './sp-treeview/sp-treeview.component';
 
 @NgModule({
   imports: [
@@ -13,8 +14,12 @@ import { MatIconModule, MatRadioModule, MatCheckboxModule, MatButtonModule } fro
     MatButtonModule
   ],
   declarations: [
-    SpTreeviewNodeComponent
+    SpTreeviewNodeComponent,
+    SpTreeviewComponent
   ],
-  exports: [SpTreeviewNodeComponent]
+  exports: [
+    SpTreeviewNodeComponent,
+    SpTreeviewComponent
+  ]
 })
 export class SpTreeviewModule { }
