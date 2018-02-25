@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Item } from './sp-multi-select-dropdown/model/item';
 import { Node } from './sp-treeview/model/node';
-import { Config, SELECT_CHECKBOX, SELECT_RADIO } from './sp-treeview/model/config';
+import { Config, SELECT_CHECKBOX, SELECT_RADIO, CHECKED_VALUE_HIGHEST_SELECTED } from './sp-treeview/model/config';
 
 @Component({
   selector: 'app-root',
@@ -38,7 +38,7 @@ export class AppComponent {
     ])
   ]);
 
-  public config: Config = new Config(SELECT_CHECKBOX);
+  public config: Config = new Config(SELECT_RADIO, CHECKED_VALUE_HIGHEST_SELECTED);
 
   constructor() {
     console.log(this.node);
@@ -46,5 +46,13 @@ export class AppComponent {
   }
   onChange(items: Item[]) {
     console.log(items);
+  }
+
+  onRadioSelect(event) {
+    console.log(event);
+  }
+
+  childCheckboxSelected(event: number[]) {
+    console.log(event);
   }
 }
