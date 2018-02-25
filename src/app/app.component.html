@@ -1,11 +1,5 @@
-<!-- <div>
-    <sp-multi-select-dropdown [items]="items" (change)="onChange($event)"></sp-multi-select-dropdown>
-    <h1>some text</h1>
-    <sp-tree-dropdown></sp-tree-dropdown>
-</div> -->
 <div>
-    <mat-radio-group>
-        <sp-treeview-node [node]="node" [config]="config" (radioSelect)="onRadioSelect($event)" (checkboxSelect)="childCheckboxSelected($event)"></sp-treeview-node>
-    </mat-radio-group>
+
+    <sp-treeview [nodes]="nodes" [config]="config" (change)="onChange($event)"></sp-treeview>
 
 </div>
