@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Node } from '../model/node';
-import { Config } from '../model/config';
+import { Config, CHECKED_VALUE_ALL, CHECKED_VALUE_LEAVES, CHECKED_VALUE_HIGHEST_SELECTED } from '../model/config';
 import { SELECT_CHECKBOX, SELECT_NONE, SELECT_RADIO } from "../model/config";
-import { MatCheckboxChange } from '@angular/material';
+import { MatCheckboxChange, MatRadioChange } from '@angular/material';
 
 @Component({
   selector: 'sp-treeview-node',
@@ -19,6 +19,11 @@ export class SpTreeviewNodeComponent implements OnInit {
 
   @Output() public checkChange: EventEmitter<Node> = new EventEmitter<Node>();
 
+  @Output() public radioSelect: EventEmitter<any> = new EventEmitter<any>();
+
+  @Output() public checkboxSelect: EventEmitter<any> = new EventEmitter<any>();
+
+
   constructor() {
   }
 
@@ -26,12 +31,12 @@ export class SpTreeviewNodeComponent implements OnInit {
     if (this.config.select == this.SELECT_CHECKBOX) {
       this.checkChildrenRecursive(this.node);
     } else if (this.config.select == this.SELECT_RADIO) {
-
+      // can check if multiple nodes are selected then log the error
     }
 
   }
 
-  checkChildrenRecursive(node: Node) {
+  private checkChildrenRecursive(node: Node) {
     if (node == null || node.children == null) {
       return;
     }
@@ -43,33 +48,22 @@ export class SpTreeviewNodeComponent implements OnInit {
 
     node.children.filter(n => n.children != null).forEach(n => this.checkChildrenRecursive(n));
 
-    let checkedChildren: number = node.children.filter(n => n.checked).length;
-
-    let indeterminateChildren: number = node.children.filter(n => n.indeterminate).length;
-
-    console.log(node.text + " : " + checkedChildren + " : " + indeterminateChildren);
-
-    if (indeterminateChildren > 0) {
-      node.indeterminate = true;
-    } else {
-      node.indeterminate = false;
-      if (checkedChildren == node.children.length) {
-        node.checked = true;
-      } else if (checkedChildren == 0) {
-        node.checked = false;
-      } else {
-        node.indeterminate = true;
-      }
-    }
+    this.checkChildren(node);
   }
 
   onCollapseExpand = () => {
     this.node.collapsed = !this.node.collapsed;
-    console.log("onCollapseExpand");
+  }
+
+  onRadioChange = (event: MatRadioChange) => {
+    this.radioSelect.emit(event.value);
+  }
+
+  private childRadioSelected(value) {
+    this.radioSelect.emit(value);
   }
 
   onCheckChange = (event: MatCheckboxChange) => {
-    console.log(this.node.text);
     // cannot be indeterminate as selection is done
     this.node.indeterminate = false;
     // set new checked value
@@ -78,17 +72,82 @@ export class SpTreeviewNodeComponent implements OnInit {
     this.changeChildren(this.node);
     // notify parent of the change
     this.checkChange.emit(this.node);
+
+    if (this.config.checkedValue == CHECKED_VALUE_HIGHEST_SELECTED) {
+      this.checkboxSelect.emit(this.checkedHighest(this.node));
+    } else if (this.config.checkedValue == CHECKED_VALUE_LEAVES) {
+      this.checkboxSelect.emit(this.checkedLeaves(this.node));
+    } else {
+      // selected values all
+      this.checkboxSelect.emit(this.checkedAll(this.node));
+    }
+
   }
 
-  onRadioChange = () => {
+  private checkedLeaves(node: Node): any[] {
+    if (!node.checked && !node.indeterminate) {
+      return [];
+    }
+    if (node.children) {
+      let values = [];
+      node.children.forEach(n => {
+        this.checkedLeaves(n).forEach(v => values.push(v));
+      });
+      return values;
+    } else {
+      return [node.value];
+    }
+  }
 
+  private checkedAll(node: Node): any[] {
+    if (!node.checked && !node.indeterminate) {
+      return [];
+    }
+    if (node.children) {
+      let values = [];
+      if (node.checked) {
+        values.push(node.value);
+      }
+      node.children.forEach(n => {
+        this.checkedAll(n).forEach(v => values.push(v));
+      });
+      return values;
+    } else {
+      return [node.value];
+    }
+  }
+
+  private checkedHighest(node: Node): any[] {
+    if (node.checked) {
+      return [node.value]
+    }
+    if (node.children) {
+      let values = [];
+      node.children.forEach(n => {
+        this.checkedHighest(n).forEach(v => values.push(v));
+      });
+      return values;
+    }
+    return [];
+  }
+
+  private childCheckboxSelected(values: any[]) {
+
+    if (this.config.checkedValue == CHECKED_VALUE_HIGHEST_SELECTED) {
+      this.checkboxSelect.emit(this.checkedHighest(this.node));
+    } else if (this.config.checkedValue == CHECKED_VALUE_LEAVES) {
+      this.checkboxSelect.emit(this.checkedLeaves(this.node));
+    } else {
+      // selected values all
+      this.checkboxSelect.emit(this.checkedAll(this.node));
+    }
   }
 
   /**
    * recursively set the value of all the children same as the parent
    * @param node 
    */
-  changeChildren(node: Node) {
+  private changeChildren(node: Node) {
     if (node == null || node.children == null) {
       return;
     }
@@ -100,33 +159,39 @@ export class SpTreeviewNodeComponent implements OnInit {
     });
   }
 
-  onChildCheckChange(child) {
-    let checkedChildren: number = this.node.children.filter(n => n.checked).length;
+  private onChildCheckChange(child) {
 
-    let indeterminateChildren: number = this.node.children.filter(n => n.indeterminate).length;
-
-    console.log(this.node.text + " : " + checkedChildren + " : " + indeterminateChildren);
-
-    if (indeterminateChildren > 0) {
-      // if indeterminate child the indeterminate
-      this.node.indeterminate = true;
-    } else {
-      // if no indeterminate child
-      this.node.indeterminate = false;
-      if (checkedChildren == this.node.children.length) {
-        // if all checked then checked
-        this.node.checked = true;
-      } else if (checkedChildren == 0) {
-        // if all unchecked then unchecked
-        this.node.checked = false;
-      } else {
-        // if not all checked then indeterminate
-        this.node.indeterminate = true;
-      }
-    }
+    this.checkChildren(this.node);
 
     // notify parent of the change
     this.checkChange.emit(this.node);
+  }
+
+  private checkChildren(node: Node) {
+    let checkedChildren: number = node.children.filter(n => n.checked).length;
+
+    let indeterminateChildren: number = node.children.filter(n => n.indeterminate).length;
+
+    if (indeterminateChildren > 0) {
+      // if indeterminate child the indeterminate
+      node.checked = false;
+      node.indeterminate = true;
+    } else {
+      // if no indeterminate child
+      node.indeterminate = false;
+      if (checkedChildren == node.children.length) {
+        // if all checked then checked
+        node.checked = true;
+      } else if (checkedChildren == 0) {
+        // if all unchecked then unchecked
+        node.checked = false;
+      } else {
+        // if not all checked then indeterminate
+        node.checked = false;
+        node.indeterminate = true;
+      }
+    }
+
   }
 }
 
