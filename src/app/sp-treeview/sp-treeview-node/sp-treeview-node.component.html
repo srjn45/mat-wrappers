@@ -15,8 +15,9 @@
       [disabled]="node.disabled" (change)="onCheckChange($event)">
       &nbsp;{{node.text}}
     </mat-checkbox>
-    <!-- <label class="clickable" (click)="node.checked = !node.checked; onCheckChange()">
-    </label> -->
+    <label *ngIf="config.select==SELECT_NONE">
+      &nbsp;{{node.text}}
+    </label>
   </div>
 </ng-template>
 <div class="node-base">
