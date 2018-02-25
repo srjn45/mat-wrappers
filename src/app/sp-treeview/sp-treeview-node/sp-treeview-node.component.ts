@@ -13,6 +13,7 @@ export class SpTreeviewNodeComponent implements OnInit {
 
   private SELECT_CHECKBOX = SELECT_CHECKBOX;
   private SELECT_RADIO = SELECT_RADIO;
+  private SELECT_NONE = SELECT_NONE;
 
   @Input() public node: Node;
   @Input() public config: Config = new Config();
@@ -140,6 +141,17 @@ export class SpTreeviewNodeComponent implements OnInit {
     } else {
       // selected values all
       this.checkboxSelect.emit(this.checkedAll(this.node));
+    }
+  }
+
+  public getCheckedValues() {
+    if (this.config.checkedValue == CHECKED_VALUE_HIGHEST_SELECTED) {
+      return this.checkedHighest(this.node);
+    } else if (this.config.checkedValue == CHECKED_VALUE_LEAVES) {
+      return this.checkedLeaves(this.node);
+    } else {
+      // selected values all
+      return this.checkedAll(this.node);
     }
   }
 
