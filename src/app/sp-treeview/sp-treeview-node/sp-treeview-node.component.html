@@ -1,3 +1,29 @@
-<p>
-  sp-treeview-node works!
-</p>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<ng-template #nodeTemplate let-node="node" let-onCollapseExpand="onCollapseExpand" let-onCheckChange="onCheckChange" let-onRadioChange="onRadioChange">
+  <div class="tree-node">
+    <button mat-button mat-icon-button *ngIf="node.children" (click)="onCollapseExpand()">
+      <mat-icon *ngIf="node.collapsed">keyboard_arrow_right</mat-icon>
+      <mat-icon *ngIf="!node.collapsed">keyboard_arrow_down</mat-icon>
+    </button>
+    <span *ngIf="node.children==null">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+    <mat-radio-button *ngIf="config.select==SELECT_RADIO" [checked]="node.checked" [disabled]="node.disabled" (change)="onRadioChange()">
+      &nbsp;{{node.text}}
+    </mat-radio-button>
+    <mat-checkbox *ngIf="config.select==SELECT_CHECKBOX" [checked]="node.checked" [indeterminate]="node.indeterminate" [disabled]="node.disabled"
+      (change)="onCheckChange($event)">
+      &nbsp;{{node.text}}
+    </mat-checkbox>
+    <!-- <label class="clickable" (click)="node.checked = !node.checked; onCheckChange()">
+    </label> -->
+  </div>
+</ng-template>
+<div class="node-base">
+  <ng-template [ngTemplateOutlet]="nodeTemplate" [ngTemplateOutletContext]="{node: node, onCollapseExpand: onCollapseExpand, onCheckChange: onCheckChange, onRadioChange: onRadioChange}">
+  </ng-template>
+
+  <div class="node-child" *ngIf="!node.collapsed">
+    <sp-treeview-node *ngFor="let child of node.children" [node]="child" [config]="config" (checkChange)="onChildCheckChange($event)">
+    </sp-treeview-node>
+  </div>
+</div>
