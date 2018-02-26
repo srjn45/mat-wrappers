@@ -1,7 +1,16 @@
 <div class="treeview-base">
-  <mat-radio-group>
-    <sp-treeview-node #tree *ngFor="let node of nodes;let i = index" [node]="node" [config]="config" (radioSelect)="onChange($event)"
-      (checkboxSelect)="onChange($event)"></sp-treeview-node>
-  </mat-radio-group>
-
+  <div class="treeview-header">
+    <mat-form-field>
+      <input matInput placeholder="Filter">
+      <button mat-button mat-icon-button matSuffix color="primary">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <div class="treeview-content">
+    <mat-radio-group>
+      <sp-treeview-node #tree *ngFor="let node of nodes;let i = index" [node]="node" [config]="config" (radioSelect)="onChange($event)"
+        (checkboxSelect)="onChange($event)"></sp-treeview-node>
+    </mat-radio-group>
+  </div>
 </div>
