@@ -10,7 +10,7 @@
   <div class="treeview-content">
     <mat-radio-group>
       <sp-treeview-node #tree *ngFor="let node of nodes;let i = index" [node]="node" [config]="config" (radioSelect)="onChange($event)"
-        (checkboxSelect)="onChange($event)"></sp-treeview-node>
+        (checkboxSelect)="onChange($event)" (delete)="onDelete($event)" ></sp-treeview-node>
     </mat-radio-group>
   </div>
 </div>

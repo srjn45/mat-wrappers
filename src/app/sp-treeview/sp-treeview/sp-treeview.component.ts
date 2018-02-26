@@ -32,4 +32,9 @@ export class SpTreeviewComponent implements OnInit {
       this.change.emit(event);
     }
   }
+
+  onDelete(value) {
+    console.log(value);
+  }
+
 }

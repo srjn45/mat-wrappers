@@ -25,6 +25,9 @@ export class SpTreeviewNodeComponent implements OnInit {
   @Output() public checkboxSelect: EventEmitter<any> = new EventEmitter<any>();
 
 
+  @Output() public delete: EventEmitter<any> = new EventEmitter<any>();
+  @Output() public addChild: EventEmitter<any> = new EventEmitter<any>();
+
   constructor() {
   }
 
@@ -205,6 +208,19 @@ export class SpTreeviewNodeComponent implements OnInit {
     }
 
   }
+
+  onDelete = (value: any) => {
+    console.log(this.node.text);
+
+    if (this.node.children != null) {
+      let index = this.node.children.findIndex(x => x.value == value);
+      if (index != -1) {
+        this.node.children.splice(index, 1);
+      }
+    }
+    this.delete.emit(value);
+  }
+
 }
 
 
