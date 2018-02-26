@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SpTreeviewNodeComponent } from './sp-treeview-node/sp-treeview-node.component';
 
-import { MatIconModule, MatRadioModule, MatCheckboxModule, MatButtonModule } from "@angular/material";
+import { MatIconModule, MatRadioModule, MatCheckboxModule, MatButtonModule, MatFormFieldModule, MatInputModule } from "@angular/material";
 import { SpTreeviewComponent } from './sp-treeview/sp-treeview.component';
 import { SpTreeviewDropdownComponent } from './sp-treeview-dropdown/sp-treeview-dropdown.component';
 
@@ -12,7 +12,9 @@ import { SpTreeviewDropdownComponent } from './sp-treeview-dropdown/sp-treeview-
     MatIconModule,
     MatRadioModule,
     MatCheckboxModule,
-    MatButtonModule
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   declarations: [
     SpTreeviewNodeComponent,
