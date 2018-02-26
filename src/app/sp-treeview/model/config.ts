@@ -11,7 +11,9 @@ export class Config {
 
     constructor(
         public select: number = SELECT_NONE,
-        public checkedValue: number = CHECKED_VALUE_LEAVES
+        public checkedValue: number = CHECKED_VALUE_LEAVES,
+        public deleteNode: boolean = false,
+        public addChild: boolean = false
     ) { }
 
 }
