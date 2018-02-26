@@ -4,6 +4,7 @@ import { SpTreeviewNodeComponent } from './sp-treeview-node/sp-treeview-node.com
 
 import { MatIconModule, MatRadioModule, MatCheckboxModule, MatButtonModule } from "@angular/material";
 import { SpTreeviewComponent } from './sp-treeview/sp-treeview.component';
+import { SpTreeviewDropdownComponent } from './sp-treeview-dropdown/sp-treeview-dropdown.component';
 
 @NgModule({
   imports: [
@@ -15,11 +16,13 @@ import { SpTreeviewComponent } from './sp-treeview/sp-treeview.component';
   ],
   declarations: [
     SpTreeviewNodeComponent,
-    SpTreeviewComponent
+    SpTreeviewComponent,
+    SpTreeviewDropdownComponent
   ],
   exports: [
     SpTreeviewNodeComponent,
-    SpTreeviewComponent
+    SpTreeviewComponent,
+    SpTreeviewDropdownComponent
   ]
 })
 export class SpTreeviewModule { }
