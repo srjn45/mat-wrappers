@@ -13,7 +13,9 @@ export class Config {
         public select: number = SELECT_NONE,
         public checkedValue: number = CHECKED_VALUE_LEAVES,
         public deleteNode: boolean = true,
-        public addChild: boolean = false
+        public addChild: boolean = true,
+        public addChildOnLeaves: boolean = false,
+        public filter: boolean = true
     ) { }
 
 }
