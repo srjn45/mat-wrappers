@@ -69,4 +69,12 @@ export class AppComponent {
   onChange(values: any) {
     console.log(values);
   }
+  onDelete(value) {
+    console.log(value);
+  }
+
+  onAddChild(node: Node) {
+    node.children.push(new Node('child', 999));
+  }
+
 }
